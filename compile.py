@@ -8,7 +8,13 @@ SETTINGS_CONFIG_FILE="settings.config"
 def read_setting():
     setting_file = Path(SETTINGS_CONFIG_FILE)
     if setting_file.is_file():
-        return {}
+        settings = {}
+        with open(SETTINGS_CONFIG_FILE) as f:
+            lines = [line.rstrip() for line in f]
+            for line in lines:
+                key,value = line.split("=")
+                settings[key] = value
+        return settings
     else:
         return None
 
